@@ -1,0 +1,32 @@
+{
+  "name": "timeseries-bins",
+  "version": "0.0.1",
+  "description": "Bin points into hours, days, weeks, quarters or years for timeseries plots",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peebles/timeseries-bins.git"
+  },
+  "keywords": [
+    "bin",
+    "time",
+    "timeseries"
+  ],
+  "author": "Andrew Peebles",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peebles/timeseries-bins/issues"
+  },
+  "homepage": "https://github.com/peebles/timeseries-bins#readme",
+  "dependencies": {
+    "concat-stream": "^1.6.0",
+    "console.table": "^0.8.0",
+    "lodash": "^4.17.4",
+    "moment-timezone": "^0.5.13",
+    "stream-spigot": "^3.0.6",
+    "timestream-aggregates-strings": "^0.1.9"
+  }
+}

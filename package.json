@@ -1,6 +1,6 @@
 {
   "name": "timeseries-bins",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "description": "Bin points into hours, days, weeks, quarters or years for timeseries plots",
   "main": "index.js",
   "scripts": {
@@ -23,10 +23,14 @@
   "homepage": "https://github.com/peebles/timeseries-bins#readme",
   "dependencies": {
     "concat-stream": "^1.6.0",
-    "console.table": "^0.8.0",
-    "lodash": "^4.17.4",
+    "lodash.filter": "^4.6.0",
+    "lodash.find": "^4.6.0",
+    "lodash.forin": "^4.4.0",
     "moment-timezone": "^0.5.13",
     "stream-spigot": "^3.0.6",
-    "timestream-aggregates-strings": "^0.1.9"
+    "timestream-aggregates-strings": "^2.0.0"
+  },
+  "devDependencies": {
+    "console.table": "^0.10.0"
   }
 }

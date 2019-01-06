@@ -32,16 +32,19 @@ let points = [
   { timestamp: moment( '2017-03-02T09:00:00' ).tz( TZ ).valueOf(), value: 10 },
   { timestamp: moment( '2017-03-04T11:15:00' ).tz( TZ ).valueOf(), value: 10 },
   { timestamp: moment( '2017-03-04T22:10:00' ).tz( TZ ).valueOf(), value: 10 },
-  { timestamp: moment( '2017-03-07T03:15:00' ).tz( TZ ).valueOf(), value: 10 },
+  { timestamp: moment( '2017-03-07T03:16:27' ).tz( TZ ).valueOf(), value: 10 },
+  { timestamp: moment( '2017-03-07T03:17:03' ).tz( TZ ).valueOf(), value: 10 },
+  { timestamp: moment( '2017-03-07T03:17:19' ).tz( TZ ).valueOf(), value: 10 },
 ];
 
-timeseries({ data: points, fcn: 'sum', timestampField: 'timestamp', interval: args.interval, start: start, end: end, tz: TZ, fill: args.fill }, function( err, bins ) {
-  if ( err ) exit( err );
+timeseries({ data: points, fcn: 'sum', timestampField: 'timestamp', interval: args.interval, start: start, end: end, tz: TZ, fill: args.fill }).then((bins) => {
   console.table( bins.map( function( b ) {
-    b.timestamp = moment( b.timestamp ).tz( TZ ).format( 'lll' );
+    b.timestamp = moment( b.timestamp ).tz( TZ ).format();
     return b;
   }));
   exit();
+}).catch((err) => {
+  exit(err);
 });
 
   

@@ -45,12 +45,18 @@ timeseries( options, function( err, bins ) {
 
 ## Options
 
-"interval" can be any interval that `moment()` understands.  "fcn" can be one of "sum", "mean", "mode", "median", "variance",
-"stdev", "percentile", "min", "max", "count", "first", "last".  "fill" can be either a number, or the string "previous".
+"interval" can be any interval that `moment()` understands.  It can also be something like "15min" or "30sec" and if so, will
+behave like InfluxDB (round down to the nearest period specified and create buckets every period specified). "fcn" can be one of 
+"sum", "mean", "mode", "median", "variance", "stdev", "percentile", "min", "max", "count", "first", "last".  "fill" can be either 
+a number, or the string "previous".
 
 If interval is not specified or is null, then you will get a rollup ... am array with a single point which performed the function
 over all of the raw data points.
 
 Your data points can contain values that are strings.  These are passed though unmodified.  The bin will contain the string value
 that was in the last point dropped into that bin.
+
+## Promises
+
+If the callback argument is not supplied, the function will return a promise.
 

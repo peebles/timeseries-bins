@@ -1,6 +1,9 @@
 "use strict";
 let moment = require( 'moment-timezone' );
-let _ = require( 'lodash' );
+
+const _isInteger = (t) => {
+  return (typeof t==='number' && (t%1)===0);
+}
 
 module.exports = function( app ) {
   let lib = {};
@@ -10,7 +13,7 @@ module.exports = function( app ) {
   // pass "+1d" or "-3weeks" get back milliseconds relative to now.
   // otherwise, assume the input is a moment-parsable string, eg: 'YYYY-MM-DDTHH:mm:ss[Z]'
   lib.timestamp = function( t, tz ) {
-    if ( _.isInteger( t ) ) return t;
+    if ( _isInteger( t ) ) return t;
     if ( t.match( /^\d+$/ ) ) return Number( t );
     if ( t.match( /^\d+ms$/ ) ) {
       let m = t.match( /^(\d+)ms$/ );

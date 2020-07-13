@@ -61,14 +61,7 @@ module.exports = function timeseries( opts, cb ) {
             // if asked, place a marker on points that were filled.
 	    b[ opts.indicateGenerated ] = true;
 	  }
-	  if ( _isInteger( opts.fill ) ) {
-	    _forIn( r[0], function( v, k ) {
-	      if ( k == opts.timestampField ) return;
-	      if ( typeof v == 'string' ) return;
-	      b[ k ] = opts.fill;
-	    });
-	  }
-	  else if ( opts.fill == 'previous' ) {
+	  if ( opts.fill == 'previous' ) {
 	    let ref;
 	    if ( bins.length == 0 ) ref = r[0];
 	    else ref = bins[ bins.length - 1 ];
@@ -78,7 +71,11 @@ module.exports = function timeseries( opts, cb ) {
 	    });	      
 	  }
 	  else {
-	    throw( 'unsupported fill: ', opts.fill ); 
+	    _forIn( r[0], function( v, k ) {
+	      if ( k == opts.timestampField ) return;
+	      if ( typeof v == 'string' ) return;
+	      b[ k ] = opts.fill;
+	    });
 	  }
 	  bins.push( b );
 	}

@@ -45,7 +45,7 @@ timeseries( options, function( err, bins ) {
 
 ## Options
 
-"interval" can be any interval that `moment()` understands.  It can also be something like "15min" or "30sec" and if so, will
+"interval" can be any interval that `day.js` understands (day, week, month, quarter, year).  It can also be something like "15min" or "30sec" and if so, will
 behave like InfluxDB (round down to the nearest period specified and create buckets every period specified). "fcn" can be one of
 "sum", "mean", "min", "max", "count".  "fill" can be either a number, or the string "previous", "nans", "zeros".
 
@@ -54,6 +54,19 @@ over all of the raw data points.
 
 Your data points can contain values that are strings.  These are passed though unmodified.  The bin will contain the string value
 that was in the last point dropped into that bin.
+
+The "fcn" can be an object instead of a string.  If your data points have multiple values, and you want to aggregate different values with
+different functions, you can:
+
+```js
+  fcn: {
+    speed: "mean",
+    fuel: "sum",
+    odometer: "max"
+  }
+```
+
+You can also add an option "fields" option, an array of field names you want returned in the final binned result.
 
 ## Promises
 

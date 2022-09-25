@@ -8,6 +8,7 @@ const dayjs = require('../dayjs-timezone');
 const timeseries = require( '../index' );
 
 const _meanBy = require('lodash.meanby');
+const _sumBy = require('lodash.sumby');
 
 const dateStrings = [
   '2017-02-02T10:00:00',
@@ -207,8 +208,7 @@ describe("tests", function() {
       start: dayjs("2017-02-01T00:00:00", TZ),
       end: dayjs("2017-04-01T00:00:00", TZ),
     });
-    dumpf(cvt(bins));
-
+    //dumpf(cvt(bins));
     expect(bins[0].v1).to.equal(_meanBy(points, 'v1'));
     expect(bins[0].v2).to.equal(_meanBy(points, 'v2'));
 
@@ -273,7 +273,32 @@ describe("tests", function() {
   });
 
   // fcn is an object {field: fcn} with sum/mean
+  it("can do mixed functions", async() => {
+    let v1i = 1;
+    let v2i = 20;
+    let points = dateStrings.map(d => {
+      return {
+        timestamp: dayjs(d).tz(TZ).valueOf(),
+        v1: v1i++,
+        v2: v2i++,
+      }
+    });
+    let bins = await timeseries({
+      data: points,
+      fcn: {
+        v1: "sum",
+        v2: "mean"
+      },
+      start: dayjs("2017-02-01T00:00:00", TZ),
+      end: dayjs("2017-04-01T00:00:00", TZ),
+    });
+    //dumpf(cvt(bins));
+    expect(bins[0].v1).to.equal(_sumBy(points, 'v1'));
+    expect(bins[0].v2).to.equal(_meanBy(points, 'v2'));
 
-
+    //createReference(cvt(bins), 'mixed-fcns');
+    let ref = require("./reference/mixed-fcns.json");
+    expect(cvt(bins)).to.eql(ref);
+  });
 
 });

@@ -141,16 +141,13 @@ function aggregate(data, fcn) {
   data.forEach((chunk) => {
     Object.keys(chunk).forEach((field) => {
       if (!_isNumber(chunk[field])) return; // only numbers.
-      try {
-        // if we haven't seen this metric before, add it to res, with the proper function
-        if (!res[field]) res[field] = aggFcns[fcn](field);
-        // and now call the agg function with the value, the chunk data and weight function
-        res[field].agg(chunk[field], chunk);
-      } catch (err) {
-        throw new Error(
-          `agg function error: field: ${field}, fcn: ${fcn}: ${err.message}`
-        );
-      }
+      // if we haven't seen this metric before, add it to res, with the proper function
+      let _fcn = fcn;
+      if (typeof fcn === 'object') _fcn = fcn[field];
+      if (!_fcn) _fcn = "sum"; // because some fields are present that are ignored
+      if (!res[field]) res[field] = aggFcns[_fcn](field);
+      // and now call the agg function with the value, the chunk data and weight function
+      res[field].agg(chunk[field], chunk);
     });
   });
   // Now we have a single object (res) with

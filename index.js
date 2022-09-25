@@ -216,7 +216,9 @@ function timeseries_aggregate({
   // establish start and end
   if (!tz) tz = "UTC";
   if (!start) start = createDate(chunks[0][timestampField||'timestamp'], tz);
+  else start = createDate(start, tz);
   if (!end) end = createDate(chunks[chunks.length - 1][timestampField||'timestamp'], tz);
+  else end = createDate(end, tz);
 
   if (interval) start = floor(start, interval);
 

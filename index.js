@@ -207,8 +207,8 @@ function timeseries_aggregate({
   };
 
   const createDate = (value, tz) => {
-    if (_isNumber(value)) return dayjs(value, tz);
-    if (value instanceof Date) return dayjs(value, tz);
+    if (_isNumber(value)) return dayjs(value).tz(tz);
+    if (value instanceof Date) return dayjs(value).tz(tz);
     if (value.isValid && value.isValid()) return value;
     throw new Error('cannot create a date from', value);
   }

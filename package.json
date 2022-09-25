@@ -1,6 +1,6 @@
 {
   "name": "timeseries-bins",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Bin points into hours, days, weeks, quarters or years for timeseries plots",
   "main": "index.js",
   "scripts": {
